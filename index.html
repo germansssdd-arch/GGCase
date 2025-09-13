@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>GGCase - Рулетка Telegram Подарков</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        <canvas id="particle-canvas"></canvas>
+        <div class="gradient-overlay"></div>
+    </div>
+    <div class="main-container">
+        <header class="header">
+            <div class="logo">GGCase</div>
+            <div class="balance">
+                <span id="coin-balance">1000</span> <img src="images/coin_icon.gif" alt="Coin" class="coin-icon glow">
+                <span id="star-balance" class="star-balance">0</span> <img src="images/star_icon.gif" alt="Star" class="star-icon glow">
+            </div>
+        </header>
+        <main>
+            <div class="window" id="case-selection-window">
+                <h2>Выберите кейс</h2>
+                <div class="case-grid" id="case-grid"></div>
+            </div>
+            <div class="window hidden" id="roulette-window">
+                <h2 id="selected-case-name">Выбранный кейс</h2>
+                <div class="roulette-container">
+                    <div class="roulette-outer-frame">
+                        <div class="roulette" id="roulette">
+                            <div class="roulette-track" id="roulette-track">
+                                <div class="roulette-items" id="roulette-items"></div>
+                            </div>
+                            <div class="roulette-pointer"></div>
+                            <div class="roulette-glow-effect"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="spin-button pulse" id="spin-button">Крутить (<span id="spin-cost">0</span> монет)</button>
+            </div>
+            <div class="window hidden" id="inventory-window">
+                <h2>Инвентарь</h2>
+                <div class="inventory-grid" id="inventory-grid"></div>
+            </div>
+            <div class="window hidden" id="deposit-window">
+                <h2>Пополнить баланс</h2>
+                <div class="deposit-options">
+                    <button class="deposit-option pulse" data-coins="100">100 монет - 100₽</button>
+                    <button class="deposit-option pulse" data-coins="500">500 монет - 450₽</button>
+                    <button class="deposit-option pulse" data-coins="1000">1000 монет - 850₽</button>
+                    <button class="deposit-option pulse" data-coins="5000">5000 монет - 4000₽</button>
+                </div>
+            </div>
+            <div class="window hidden" id="clicker-window">
+                <h2>Кликер</h2>
+                <div class="clicker-container">
+                    <div class="clicker-object" id="clicker-object">
+                        <img src="images/clicker_star.gif" alt="Star" class="clicker-star pulse">
+                    </div>
+                    <p>Звезды: <span id="clicker-star-count">0</span></p>
+                    <p>Множитель: <span id="multiplier">1x</span></p>
+                    <button class="convert-button pulse" id="convert-button">Конвертировать звезды (100 звезд = 1000 монет)</button>
+                    <button class="bonus-button pulse" id="daily-bonus">Ежедневный бонус</button>
+                </div>
+            </div>
+        </main>
+        <nav class="bottom-nav">
+            <button class="nav-button pulse" data-window="case-selection-window">Кейсы</button>
+            <button class="nav-button pulse" data-window="roulette-window" disabled id="roulette-nav">Рулетка</button>
+            <button class="nav-button pulse" data-window="inventory-window">Инвентарь</button>
+            <button class="nav-button pulse" data-window="deposit-window">Пополнить</button>
+            <button class="nav-button pulse" data-window="clicker-window">Кликер</button>
+        </nav>
+    </div>
+    <div class="modal hidden" id="win-modal">
+        <div class="modal-content">
+            <h2>Поздравляем!</h2>
+            <p>Вы выиграли: <span id="win-item"></span></p>
+            <div class="win-item-preview" id="win-item-preview"></div>
+            <button class="modal-button pulse" id="close-modal">Закрыть</button>
+        </div>
+    </div>
+    <div class="modal hidden" id="deposit-confirm-modal">
+        <div class="modal-content">
+            <h2>Подтверждение пополнения</h2>
+            <p>Пополнить баланс на <span id="deposit-amount"></span> монет за <span id="deposit-price"></span>₽?</p>
+            <div class="modal-buttons">
+                <button class="modal-button pulse" id="confirm-deposit">Подтвердить</button>
+                <button class="modal-button pulse" id="cancel-deposit">Отменить</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal hidden" id="sell-confirm-modal">
+        <div class="modal-content">
+            <h2>Подтверждение продажи</h2>
+            <p>Продать предмет <span id="sell-item"></span> за <span id="sell-price"></span> монет?</p>
+            <div class="modal-buttons">
+                <button class="modal-button pulse" id="confirm-sell">Продать</button>
+                <button class="modal-button pulse" id="cancel-sell">Отменить</button>
+            </div>
+        </div>
+    </div>
+    <audio id="spin-sound" src="https://freesound.org/data/previews/511/511484_5121236-lq.mp3"></audio>
+    <audio id="win-sound" src="https://freesound.org/data/previews/511/511486_5121236-lq.mp3"></audio>
+    <audio id="click-sound" src="https://freesound.org/data/previews/511/511485_5121236-lq.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
